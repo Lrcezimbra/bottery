@@ -38,20 +38,20 @@ def data_message():
     return {
         'message': {
             'chat': {
-                'first_name': 'Lucas',
+                'first_name': 'John',
                 'id': 12345678,
-                'last_name': 'Rangel Cezimbra',
+                'last_name': 'Snow',
                 'type': 'private',
-                'username': 'Lrcezimbra'
+                'username': 'johnsnow'
             },
             'date': 1516787847,
             'from': {
-                'first_name': 'Lucas',
+                'first_name': 'John',
                 'id': 12345678,
                 'is_bot': False,
                 'language_code': 'en-US',
-                'last_name': 'Rangel Cezimbra',
-                'username': 'Lrcezimbra'
+                'last_name': 'Snow',
+                'username': 'johnsnow'
             },
             'message_id': 2,
             'text': 'Hi bot, how are you?'
