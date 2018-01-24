@@ -34,7 +34,7 @@ def message():
 
 
 @pytest.fixture()
-def data_message():
+def message_data():
     return {
         'message': {
             'chat': {
@@ -72,29 +72,27 @@ def test_platform_telegram_engine_get_chat_id(chat_type,
     assert engine.get_chat_id(engine, message) == id_expected
 
 
-def test_build_message(engine, data_message, user, chat):
-    message_data = data_message['message']
+def test_build_message(engine, message_data, user, chat):
+    message = engine.build_message(engine, message_data)
 
-    message = engine.build_message(engine, data_message)
-
-    assert message.id == message_data['message_id']
-    assert message.text == message_data['text']
-    assert message.timestamp == message_data['date']
-    assert message.raw == data_message
+    assert message.id == message_data['message']['message_id']
+    assert message.text == message_data['message']['text']
+    assert message.timestamp == message_data['message']['date']
+    assert message.raw == message_data
 
 
-def test_build_message_without_text(data_message, engine):
+def test_build_message_without_text(message_data, engine):
     '''
     Telegram can send a message without text.
     For example, when a bot is added to a group.
     '''
-    message_data_without_text = data_message['message']
-    del message_data_without_text['text']
+    message_data_without_text = message_data
+    del message_data_without_text['message']['text']
 
-    message = engine.build_message(engine, data_message)
+    message = engine.build_message(engine, message_data_without_text)
 
-    assert message.id == message_data_without_text['message_id']
+    assert message.id == message_data_without_text['message']['message_id']
     assert message.text is not None
     assert message.text == ''
-    assert message.timestamp == message_data_without_text['date']
-    assert message.raw == data_message
+    assert message.timestamp == message_data_without_text['message']['date']
+    assert message.raw == message_data
